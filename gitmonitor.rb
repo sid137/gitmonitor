@@ -14,12 +14,15 @@ class GitMonitor
 
       last_commit = response["commits"].first
       most_recent_commit = last_commit["id"]
-      my_last_commit = `git --no-pager log --max-count=1 | grep "commit" | awk '{print $2}'`
+      my_last_commit = `git --no-pager log --max-count=1 | grep -m 1 "commit" | awk '{print $2}'`.strip
       p my_last_commit
       p most_recent_commit
       if my_last_commit != most_recent_commit
-        changed
-        notify_observers(last_commit)
+        #changed
+        #notify_observers(last_commit)
+        p "updatingn"
+      else
+        p "not updatingj"
       end
       sleep(3)
     end
